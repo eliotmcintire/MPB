@@ -1,7 +1,8 @@
 
-#### setLibPaths start #### New File:TRUE # DO NOT EDIT BETWEEN THESE LINES
+
+#### setLibPaths start #### New File:FALSE # DO NOT EDIT BETWEEN THESE LINES
 ### DELETE THESE LINES BELOW TO RESTORE STANDARD R Package LIBRARY
-### Previous .libPaths: C:/Users/emcintir/AppData/Local/R/win-library/4.3, C:/Program Files/R/R-4.3.2/library
+### Previous .libPaths: C:/Users/emcintir/AppData/Roaming/R/data/R/MPB/packages/x86_64-w64-mingw32/4.3, C:/Program Files/R/R-4.3.2/library
 ._libPaths <- c('C:/Users/emcintir/AppData/Roaming/R/data/R/MPB/packages/x86_64-w64-mingw32/4.3')
 ._standAlone <- TRUE
 {
@@ -26,4 +27,3 @@
 }
 message("To reset libPaths to previous state, run: Require::setupOff() (or delete section in .Rprofile file)") 
 #### setLibPaths end
-source('C:/Eliot/GitHub/MPB/.Restart_file45c8415b3d43')

@@ -1,30 +1,34 @@
+repos <- c("https://predictiveecology.r-universe.dev", getOption("repos"))
 source("https://raw.githubusercontent.com/PredictiveEcology/pemisc/development/R/getOrUpdatePkg.R")
-getOrUpdatePkg("Require", minVer = "0.3.1.9081")
-getOrUpdatePkg("SpaDES.project", minVer = c( "0.0.8.9050"))
+getOrUpdatePkg("Require", minVer = "0.3.1.9098")
 getOrUpdatePkg("pkgload")
-#remotes::install_github("PredictiveEcology/Require@simplify4", upgrade = TRUE, ask = FALSE)
-# remotes::install_github("PredictiveEcology/SpaDES.project@transition", upgrade = TRUE, ask = FALSE)
-# pkgload::load_all("~/GitHub/SpaDES.project")
-
-
+getOrUpdatePkg("SpaDES.project", minVer = c( "0.1.0.9007"))
+# options("SpaDES.project.packages" = NULL)
+pkgload::load_all("~/GitHub/SpaDES.project");
 out <- SpaDES.project::setupProject(
   paths = list(projectPath = "~/GitHub/MPB"),
   modules =
     paste0("achubaty/",
            c("LandR_MPB_studyArea@development"
-             ,"mpbClimateData@HEAD"
-             ,"mpbMassAttacksData@HEAD"
-             ,"mpbPine@HEAD"
-             ,"mpbRedTopSpread@HEAD")),
-  packages = c("PredictiveEcology/reproducible@development (HEAD)",
-               "PredictiveEcology/SpaDES.core@sequentialCaching (HEAD)",
-               "RNCan/BioSimClient_R", "googledrive" ),
+             ,"mpbClimateData@master"
+             ,"mpbMassAttacksData@master"
+             ,"mpbPine@master"
+             ,"mpbRedTopSpread@master")),
+  packages = c("reproducible (>= 2.1.1)", "terra", "SpaDES.tools (HEAD)", "amc (HEAD)",
+               "LandR (HEAD)", "usethis",
+               "PredictiveEcology/SpaDES.core@box (HEAD)",
+               "BioSIM", "googledrive" ),
   options = options(reproducible.useMemoise = TRUE, reproducible.showSimilar = 6,
                     gargle_oauth_email = "eliotmcintire@gmail.com",
                     gargle_oauth_cache = ".secret",
-                    spades.moduleCodeChecks = FALSE),
+                    useRequire = FALSE, reproducible.objSize = FALSE,
+                    spades.moduleCodeChecks = FALSE,
+                    repos = unique(repos)),
   times = list(start = 2000, end = 2030),
-  params = list(.globals = list(.useCache = c(".inputObjects", "init"), .plots = NA),
+  params = list(.globals = list(.useCache = c(".inputObjects", "init"), lowMemory = TRUE, .plots = NA),
                 mpbClimateData = list(usePrerun = FALSE)),
-  Restart = TRUE)#, useGit = "eliotmcintire")
-sim <- do.call(SpaDES.core::simInitAndSpades, out)
+  Restart = TRUE
+  , useGit = "eliotmcintire"
+)
+# pkgload::load_all("~/GitHub/Require"); pkgload::load_all("~/GitHub/reproducible")
+# sim <- do.call(SpaDES.core::simInitAndSpades, out)

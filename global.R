@@ -2,7 +2,7 @@ repos <- c("https://predictiveecology.r-universe.dev", getOption("repos"))
 source("https://raw.githubusercontent.com/PredictiveEcology/pemisc/development/R/getOrUpdatePkg.R")
 getOrUpdatePkg("Require", minVer = "0.3.1.9098")
 # getOrUpdatePkg("pkgload")
-getOrUpdatePkg("SpaDES.project", minVer = c( "0.1.0.9015"))
+getOrUpdatePkg("SpaDES.project", minVer = c( "0.1.1.9015"))
 # options("SpaDES.project.packages" = NULL)
 # pkgload::load_all("~/GitHub/SpaDES.project");
 out <- SpaDES.project::setupProject(

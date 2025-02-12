@@ -10,3 +10,6 @@ outputs
 .RData
 .secret
 .secrets
+.Rprofile
+.Restart*
+.Rprofile

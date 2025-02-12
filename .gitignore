@@ -13,3 +13,12 @@ outputs
 .Rprofile
 .Restart*
 .Rprofile
+nohup.out
+SpeciesPresentInAllCanadianForests.zip
+SpeciesPresentInCanadianForests.tif
+SpeciesPresentInCanadianForests.tif.aux.xml
+standAgeMap_2001_ABSK_9.2.tif
+standAgeMap_2011_ABSK_9.2.tif
+standAgeMap_ABSK_9.2.tif
+J4RServer2025_02_11.log
+J4RTmpFile

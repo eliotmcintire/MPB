@@ -2,8 +2,8 @@
 
 #### setLibPaths start #### New File:FALSE # DO NOT EDIT BETWEEN THESE LINES
 ### DELETE THESE LINES BELOW TO RESTORE STANDARD R Package LIBRARY
-### Previous .libPaths: C:/Users/emcintir/AppData/Roaming/R/data/R/MPB/packages/x86_64-w64-mingw32/4.3, C:/Program Files/R/R-4.3.2/library
-._libPaths <- c('C:/Users/emcintir/AppData/Roaming/R/data/R/MPB/packages/x86_64-w64-mingw32/4.3')
+### Previous .libPaths: /home/emcintir/R/x86_64-pc-linux-gnu-library/4.4, /usr/local/lib/R/site-library, /usr/lib/R/site-library, /usr/lib/R/library
+._libPaths <- c('/home/emcintir/.local/share/R/MPB/packages/x86_64-pc-linux-gnu/4.4')
 ._standAlone <- TRUE
 {
     .oldLibPaths <- .libPaths()

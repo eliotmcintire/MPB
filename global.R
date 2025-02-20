@@ -15,10 +15,10 @@ out <- SpaDES.project::setupProject(
              ,"mpbMassAttacksData@master"
              ,"mpbPine@master"
              ,"mpbRedTopSpread@master")),
-  packages = c("reproducible (>= 2.1.1)", "terra", "SpaDES.tools (HEAD)", "amc (HEAD)",
+  packages = c("reproducible (>= 2.1.1)", "terra", "PredictiveEcology/SpaDES.tools@pointDistance2", "amc (HEAD)",
                "LandR (HEAD)", "usethis", "PredictiveEcology/clusters@main (HEAD)",
                "PredictiveEcology/reproducible@AI",
-               "PredictiveEcology/SpaDES.core@box",
+               "PredictiveEcology/SpaDES.core@box (HEAD)",
                "BioSIM", "googledrive" ),
   options = options(reproducible.useMemoise = TRUE,
                     reproducible.memoisePersist = TRUE,
@@ -42,6 +42,8 @@ out <- SpaDES.project::setupProject(
 )
 
 restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
+  # there are tempdir paths
+  out$paths <- sapply(out$paths, grep, invert = TRUE, value = TRUE, pattern = tempdir(), simplify = TRUE)
   fn <- function(out) out
   cached <- attr(reproducible::Cache(fn(out), .functionName = "restartOrSimInitAndSpades"), ".Cache")$newCache %in% FALSE
   if (!cached) {
@@ -64,9 +66,11 @@ restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
 # pkgload::load_all("~/GitHub/Require");
 # devtools::install("~/GitHub/clusters");
 
-pkgload::load_all("~/GitHub/reproducible");
+# pkgload::load_all("~/GitHub/reproducible");
 pkgload::load_all("~/GitHub/clusters");
-pkgload::load_all("~/GitHub/SpaDES.core");
-pkgload::load_all("~/GitHub/SpaDES.tools");
-pkgload::load_all("~/GitHub/LandR")
-restartOrSimInitAndSpades(out)
+# pkgload::load_all("~/GitHub/SpaDES.core");
+# pkgload::load_all("~/GitHub/SpaDES.tools");
+# pkgload::load_all("~/GitHub/LandR")
+fn <- "simPreDispersalFit.qs"
+restartOrSimInitAndSpades(out, fn)
+saveState(file = fn)

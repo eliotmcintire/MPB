@@ -4,6 +4,7 @@ getOrUpdatePkg("Require", minVer = "0.3.1.9098")
 getOrUpdatePkg("pkgload")
 getOrUpdatePkg("SpaDES.project", minVer = c( "0.1.1.9015"))
 # pkgload::load_all("~/GitHub/Require");pkgload::load_all("~/GitHub/clusters");
+pkgload::load_all("~/GitHub/SpaDES.project")
 out <- SpaDES.project::setupProject(
   paths = list(projectPath = "~/GitHub/MPB",
                cachePath = "cache"),
@@ -37,7 +38,7 @@ out <- SpaDES.project::setupProject(
                 mpbClimateData = list(usePrerun = FALSE),
                 mpbRedTopSpread = list(type = "DEoptim")),
   Restart = TRUE
- # , useGit = "eliotmcintire"
+  , useGit = "eliotmcintire"
 )
 
 restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
@@ -63,9 +64,9 @@ restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
 # pkgload::load_all("~/GitHub/Require");
 # devtools::install("~/GitHub/clusters");
 
-# pkgload::load_all("~/GitHub/reproducible");
+pkgload::load_all("~/GitHub/reproducible");
 pkgload::load_all("~/GitHub/clusters");
-# pkgload::load_all("~/GitHub/SpaDES.core");
-# pkgload::load_all("~/GitHub/SpaDES.tools");
-# pkgload::load_all("~/GitHub/LandR")
+pkgload::load_all("~/GitHub/SpaDES.core");
+pkgload::load_all("~/GitHub/SpaDES.tools");
+pkgload::load_all("~/GitHub/LandR")
 restartOrSimInitAndSpades(out)

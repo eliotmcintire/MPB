@@ -16,9 +16,9 @@ out <- SpaDES.project::setupProject(
              ,"mpbPine@master"
              ,"mpbRedTopSpread@master")),
   packages = c("reproducible (>= 2.1.1)", "terra", "PredictiveEcology/SpaDES.tools@pointDistance2", "amc (HEAD)",
-               "LandR (HEAD)", "usethis", "PredictiveEcology/clusters@main (HEAD)",
+               "LandR (HEAD)", "usethis", "PredictiveEcology/clusters@main",
                "PredictiveEcology/reproducible@AI",
-               "PredictiveEcology/SpaDES.core@box (HEAD)",
+               "PredictiveEcology/SpaDES.core@box",
                "BioSIM", "googledrive" ),
   options = options(reproducible.useMemoise = TRUE,
                     reproducible.memoisePersist = TRUE,
@@ -62,15 +62,18 @@ restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
 }
 
 
-# devtools::install("~/GitHub/reproducible", upgrade = FALSE)
-# devtools::install("~/GitHub/SpaDES.core", upgrade = FALSE)
-# devtools::install("~/GitHub/SpaDES.tools", upgrade = FALSE)
-# pkgload::load_all("~/GitHub/Require");
-# devtools::install("~/GitHub/clusters");
+if (FALSE) {
+  devtools::install("~/GitHub/reproducible", upgrade = FALSE)
+  devtools::install("~/GitHub/SpaDES.core", upgrade = FALSE)
+  devtools::install("~/GitHub/SpaDES.tools", upgrade = FALSE)
+  # pkgload::load_all("~/GitHub/Require");
+  devtools::install("~/GitHub/clusters", upgrade = FALSE);
+  reinstall <- FALSE
+}
 
-pkgload::load_all("~/GitHub/reproducible");
+# pkgload::load_all("~/GitHub/reproducible");
 pkgload::load_all("~/GitHub/clusters");
-pkgload::load_all("~/GitHub/SpaDES.core");
+# pkgload::load_all("~/GitHub/SpaDES.core");
 # pkgload::load_all("~/GitHub/SpaDES.tools");
 # pkgload::load_all("~/GitHub/LandR")
 fn <- "simPreDispersalFit.qs"

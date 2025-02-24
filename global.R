@@ -34,11 +34,16 @@ out <- SpaDES.project::setupProject(
                     repos = unique(repos)),
   times = list(start = 2000, end = 2030),
   params = list(.globals = list(.useCache = c(".inputObjects", "init"),
-                                lowMemory = TRUE, .plots = c("png"), .runName = "2"),
+                                lowMemory = TRUE, .plots = c("png"), .runName = "MPB"),
                 mpbClimateData = list(usePrerun = FALSE),
-                mpbRedTopSpread = list(type = "DEoptim")),
-  Restart = TRUE
-  # , useGit = "eliotmcintire"
+                mpbRedTopSpread = list(type = "DEoptim",
+                                       .runName = "MPB",
+                                       .coresList = lapply(
+                                         c(#"localhost",
+                                           paste0("n", c(14, 18, 161, 168, 169, 174, 179, 181))), # 42, 164, 171 offline
+                                         rep, each = 30))),
+                Restart = TRUE
+                # , useGit = "eliotmcintire"
 )
 
 restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {

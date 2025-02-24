@@ -30,6 +30,7 @@ out <- SpaDES.project::setupProject(
                     reproducible.objSize = FALSE,
                     reproducible.showSimilar = TRUE,
                     reproducible.cacheSaveFormat = "rds",
+                    # reproducible.useCache = TRUE,
                     spades.moduleCodeChecks = FALSE,
                     repos = unique(repos)),
   times = list(start = 2000, end = 2030),
@@ -43,7 +44,7 @@ out <- SpaDES.project::setupProject(
                                            paste0("n", c(14, 18, 161, 168, 174, 179, 181))), # 42, 164, 171 offline
                                          rep, each = 30))),
   Restart = TRUE
-  , useGit = "eliotmcintire"
+  # , useGit = "eliotmcintire"
 )
 
 restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
@@ -53,12 +54,14 @@ restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
   fn <- function(out) out
   cached <- attr(reproducible::Cache(fn(out), .functionName = "restartOrSimInitAndSpades"), ".Cache")$newCache %in% FALSE
   out$paths <- pathsOrig
-  if (!cached) {
+  hasSavedToRAMState <- !is.null(SpaDES.core:::savedSimEnv()$.sim)
+  hasSavedToFileState <- file.exists(file)
+  if (!cached || !(hasSavedToFileState || hasSavedToRAMState)) {
     message("out has changed; rerunning simInitAndSpades")
     sim <- do.call(SpaDES.core::simInitAndSpades, out)
   } else {
     message("out has not changed; trying restartSpades")
-    if (isTRUE(is.null(SpaDES.core:::savedSimEnv()$.sim))) {
+    if (isFALSE(hasSavedToRAMState)) {
       sim <- SpaDES.core::restartSpades(file)
     } else  {
       sim <- SpaDES.core::restartSpades()

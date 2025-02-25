@@ -1,10 +1,11 @@
 repos <- c("https://predictiveecology.r-universe.dev", getOption("repos"))
 source("https://raw.githubusercontent.com/PredictiveEcology/pemisc/development/R/getOrUpdatePkg.R")
 getOrUpdatePkg("Require", minVer = "0.3.1.9098")
-getOrUpdatePkg("pkgload")
+# getOrUpdatePkg("pkgload")
 getOrUpdatePkg("SpaDES.project", minVer = c( "0.1.1.9015"))
 # pkgload::load_all("~/GitHub/Require");pkgload::load_all("~/GitHub/clusters");
 # pkgload::load_all("~/GitHub/SpaDES.project")
+# debug(setupPackages)
 out <- SpaDES.project::setupProject(
   paths = list(projectPath = "~/GitHub/MPB",
                cachePath = "cache"),
@@ -25,7 +26,8 @@ out <- SpaDES.project::setupProject(
                     # reproducible.showSimilar = 6,
                     # gargle_oauth_email = "eliotmcintire@gmail.com",
                     gargle_oauth_cache = "~/.secret",
-                    useRequire = FALSE,
+                    spades.useRequire = FALSE,
+                    # SpaDES.project.fast = FALSE,
                     reproducible.inputPaths = "~/data", # This is for prepInputs hardlinks
                     reproducible.objSize = FALSE,
                     reproducible.showSimilar = TRUE,
@@ -39,10 +41,31 @@ out <- SpaDES.project::setupProject(
                 mpbClimateData = list(usePrerun = FALSE),
                 mpbRedTopSpread = list(type = "DEoptim",
                                        .runName = "MPB",
-                                       .coresList = lapply(
-                                         c("localhost",
-                                           paste0("n", c(14, 18, 161, 168, 174, 179, 181))), # 42, 164, 171 offline
-                                         rep, each = 30))),
+                                       .coresList =
+                                       #  lapply(
+                                       #   # "n161", rep, 30)
+                                       # c("localhost",
+                                       #   paste0("n", c(18, 161, 168, 174, 179, 181))), # 42, 171, and the slower 164 are offline
+                                       #  rep, each = 30)
+                                       # )),
+                                         {df <- data.table::data.table(core = c("localhost",
+                                                                                paste0("n", c(18, 161, 168, 174, 179, 181, 202, 207))),
+                                                                       # paste0("n", c(14, 54, 105))),
+                                                                       ncores = c(80, rep(48, 8))# , rep(16, 3))
+                                         )
+                                         df[, ncoresUse := round(0.75 * ncores)]
+                                         df2 <- data.table::data.table(core = rep(df$core, df$ncoresUse))
+                                         data.table::setorder(df2, core)
+                                         df2[, `:=`(coreID = cumsum(c(0, diff(as.factor(core)))))]
+                                         iterID <- rep(seq(ceiling(NROW(df2)/30)), each = 30)
+                                         df2[, split := iterID[seq(NROW(df2))]]
+                                         df3 <- df2[, .(hasEnough = .N == 30), by = "split"][hasEnough %in% TRUE]
+                                         df2 <- df2[df3, on = "split"]
+                                         df <- split(df2, by = "split")
+                                         lapply(df, function(x) x$core)}
+                )),
+
+
   Restart = TRUE
   # , useGit = "eliotmcintire"
 )
@@ -71,6 +94,7 @@ restartOrSimInitAndSpades <- function(out, file = "simPreDispersalFit.qs") {
 
 
 if (FALSE) {
+  devtools::install("~/GitHub/SpaDES.project", upgrade = FALSE)
   devtools::install("~/GitHub/reproducible", upgrade = FALSE)
   devtools::install("~/GitHub/SpaDES.core", upgrade = FALSE)
   devtools::install("~/GitHub/SpaDES.tools", upgrade = FALSE)

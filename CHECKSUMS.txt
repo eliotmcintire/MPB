@@ -1,4 +1,6 @@
 "file" "checksum" "filesize" "algorithm"
+"area_1.tif" "3d2095ca01c6de8f" "2316" "xxhash64"
+"data_area1.RData" "571d6cd557d0857b" "7590512" "xxhash64"
 "SpeciesPresentInAllCanadianForests.zip" "1928bbef0445c994" "3443551" "xxhash64"
 "SpeciesPresentInCanadianForests.tif" "a456b9ce33d7c9e3" "1607909" "xxhash64"
 "SpeciesPresentInCanadianForests.tif" "a5ce06486749355e" "4091518" "xxhash64"

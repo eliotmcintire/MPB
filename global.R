@@ -16,10 +16,10 @@ out <- SpaDES.project::setupProject(
              ,"mpbMassAttacksData@master"
              ,"mpbPine@master"
              ,"mpbRedTopSpread@master")),
-  packages = c("reproducible (>= 2.1.1)", "terra", "PredictiveEcology/SpaDES.tools@pointDistance2", "amc (HEAD)",
+  packages = c("terra", "PredictiveEcology/SpaDES.tools@pointDistance2", "amc (HEAD)",
                "LandR (HEAD)", "usethis", "PredictiveEcology/clusters@main",
-               "PredictiveEcology/reproducible@AI",
-               "PredictiveEcology/SpaDES.core@box",
+               "PredictiveEcology/reproducible@AI (HEAD)",
+               "PredictiveEcology/SpaDES.core@box (HEAD)",
                "BioSIM", "googledrive" ),
   options = options(reproducible.useMemoise = TRUE,
                     reproducible.memoisePersist = TRUE,
@@ -37,10 +37,10 @@ out <- SpaDES.project::setupProject(
                     repos = unique(repos)),
   times = list(start = 2000, end = 2030),
   params = list(.globals = list(.useCache = c(".inputObjects", "init"),
-                                lowMemory = TRUE, .plots = c("png"), .runName = "MPB"),
+                                lowMemory = TRUE, .plots = c("png"), .runName = "MPB_2"),
                 mpbClimateData = list(usePrerun = FALSE),
                 mpbRedTopSpread = list(type = "DEoptim",
-                                       .runName = "MPB",
+                                       # .runName = "MPB",
                                        .coresList =
                                        #  lapply(
                                        #   # "n161", rep, 30)
@@ -104,10 +104,20 @@ if (FALSE) {
 }
 
 # pkgload::load_all("~/GitHub/reproducible");
+# pkgload::load_all("~/GitHub/SpaDES.project");
 pkgload::load_all("~/GitHub/clusters");
 # pkgload::load_all("~/GitHub/SpaDES.core");
 # pkgload::load_all("~/GitHub/SpaDES.tools");
 # pkgload::load_all("~/GitHub/LandR")
 fn <- "simPreDispersalFit.qs"
+# sim <- SpaDES.core::loadSimList(fn)
 restartOrSimInitAndSpades(out, fn)
-saveState(file = fn)
+# saveState(file = fn)
+
+
+# maps <- lapply(mget(grep("studyArea", ls(sim), value = TRUE), envir = envir(sim)), terra::vect)
+# maps <- append(maps, list(propPine = sim$propPineRas))
+# area1 <- prepInputs(url = "https://drive.google.com/file/d/1rMTn8TvVq4qjmSwi-Cei0CCc7_p0gg07/view?usp=drive_link")
+# maps <- append(list(area1), maps)
+# names(maps)[1] <- "rasterToMatch_area1"
+# plotSAsLeaflet(sim)

@@ -22,5 +22,6 @@ standAgeMap_2011_ABSK_9.2.tif
 standAgeMap_ABSK_9.2.tif
 J4RTmpFile
 J4R*.l*
-simPreDispersalFit.qs
-SpeciesPresentInCanadianForests.zip
+*.qs
+*.zip
+*.tar.gz
